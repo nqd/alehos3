@@ -2,6 +2,7 @@
 
 let Alehos = require('../index')
 let sinon = require('sinon')
+let expect = require('chai').expect
 
 let app
 
@@ -17,6 +18,6 @@ describe('getHlrFn', () => {
 
   it('should call discovery fnc from discovery event', () => {
     const event = require('./sample_messages/Discovery/Discovery.request.json')
-    expect(app._getHlrFn(event.header.name)).to.eq(app.handlers.discover)
+    expect(app._getHlrFn(event.directive.header.namespace)).to.eq(app.handlers.discover)
   })
 })
