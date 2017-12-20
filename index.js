@@ -8,6 +8,22 @@ let Alehos = function () {
 }
 
 /**
+ * register a handling function with an event
+ * the event should be: discover, onoff, temperature, percentage, healthCheck
+ * the object will be wrote to handlers
+ *
+ * @param {string} name
+ * @param {function} fnc
+ */
+Alehos.prototype.registerHandler = function (eventName, handler) {
+  if (typeof handler !== 'function') {
+    throw new Error(`Event handler for '${eventName}' was not a function`)
+  }
+
+  this.handlers[eventName] = handler
+}
+
+/**
  * Given header of the request, provide handling function
  *
  * @param {string} header
