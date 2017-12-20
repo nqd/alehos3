@@ -1,7 +1,6 @@
 'use strict'
 
 let Alehos = require('../index')
-let sinon = require('sinon')
 let expect = require('chai').expect
 
 let app
@@ -20,7 +19,7 @@ describe('getHlrFn', () => {
       cameraStreamInitialize: function (_req, _cb) { },
 
       brightnessControllerAdjust: function (_req, _cb) { },
-      brightnessControllerSet: function (_req, _cb) { },
+      brightnessControllerSet: function (_req, _cb) { }
     }
   })
 

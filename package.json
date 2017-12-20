@@ -7,6 +7,7 @@
     "test": "test"
   },
   "scripts": {
+    "lint": "standard --env mocha",
     "test": "npm run lint && mocha --bail --reporter spec 2>&1"
   },
   "repository": {

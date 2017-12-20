@@ -3,8 +3,8 @@
 let code = require('./code')
 
 let Alehos = function () {
-    this.code = code
-    this.handlers = {}
+  this.code = code
+  this.handlers = {}
 }
 
 /**
@@ -14,40 +14,33 @@ let Alehos = function () {
  * @returns {function}
  */
 Alehos.prototype._getHlrFn = function (header) {
-    let fn
-    switch (header.namespace) {
+  let fn
+  switch (header.namespace) {
         // discovery
-        case this.code.NAMESPACE_DISCOVERY:
-            fn = this.handlers['discover']
-            break
+    case this.code.NAMESPACE_DISCOVERY:
+      fn = this.handlers['discover']
+      break
 
         // power control
-        case this.code.NAMESPACE_POWERCONTROL:
-            if (header.name === this.code.NAME_TURNON)
-                fn = this.handlers['powerControllerTurnOn']
-            else if (header.name === this.code.NAME_TURNOFF)
-                fn = this.handlers['powerControllerTurnOff']
+    case this.code.NAMESPACE_POWERCONTROL:
+      if (header.name === this.code.NAME_TURNON) { fn = this.handlers['powerControllerTurnOn'] } else if (header.name === this.code.NAME_TURNOFF) { fn = this.handlers['powerControllerTurnOff'] }
 
-            break
+      break
 
         // camera
-        case this.code.NAMESPACE_CAMERASTREAMCONTROLLER:
-            if (header.name === this.code.NAME_INITIALIZECAMERASTREAM)
-                fn = this.handlers['cameraStreamInitialize']
+    case this.code.NAMESPACE_CAMERASTREAMCONTROLLER:
+      if (header.name === this.code.NAME_INITIALIZECAMERASTREAM) { fn = this.handlers['cameraStreamInitialize'] }
 
-            break
+      break
 
         // camera
-        case this.code.NAME_SPACE_BRIGHTNESSCONTROLLER:
-            if (header.name === this.code.NAME_ADJUSTBRIGHTNESS)
-                fn = this.handlers['brightnessControllerAdjust']
-            else if (header.name === this.code.NAME_SETBRIGHTNESS)
-                fn = this.handlers['brightnessControllerSet']
+    case this.code.NAME_SPACE_BRIGHTNESSCONTROLLER:
+      if (header.name === this.code.NAME_ADJUSTBRIGHTNESS) { fn = this.handlers['brightnessControllerAdjust'] } else if (header.name === this.code.NAME_SETBRIGHTNESS) { fn = this.handlers['brightnessControllerSet'] }
 
-            break
-    }
+      break
+  }
 
-    return fn
+  return fn
 }
 
 module.exports = Alehos
