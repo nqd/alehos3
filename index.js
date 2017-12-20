@@ -8,16 +8,26 @@ let Alehos = function () {
 }
 
 /**
- * Given type of the request, provide handling function
+ * Given header of the request, provide handling function
  *
- * @param {string} type
+ * @param {string} header
  * @returns {function}
  */
-Alehos.prototype._getHlrFn = function (type) {
+Alehos.prototype._getHlrFn = function (header) {
     let fn
-    switch (type) {
+    switch (header.namespace) {
+        // discovery
         case this.code.NAMESPACE_DISCOVERY:
             fn = this.handlers['discover']
+            break
+
+        // power control
+        case this.code.NAMESPACE_POWERCONTROL:
+            if (header.name === this.code.NAME_TURNON)
+                fn = this.handlers['powerControllerTurnOn']
+            else if (header.name === this.code.NAME_TURNOFF)
+                fn = this.handlers['powerControllerTurnOff']
+
             break
     }
 
