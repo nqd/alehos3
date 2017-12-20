@@ -29,6 +29,12 @@ Alehos.prototype._getHlrFn = function (header) {
                 fn = this.handlers['powerControllerTurnOff']
 
             break
+
+        case this.code.NAMESPACE_CAMERA_STREAMCONTROLLER:
+            if (header.name === this.code.NAME_INITIALIZECAMERASTREAM)
+                fn = this.handlers['cameraStreamInitialize']
+
+            break
     }
 
     return fn

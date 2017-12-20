@@ -12,9 +12,12 @@ describe('getHlrFn', () => {
 
     // provide some functions
     app.handlers = {
-      discover: function discoverHlr(_req, _cb) { },
-      powerControllerTurnOn: function discoverHlr(_req, _cb) { },
-      powerControllerTurnOff: function discoverHlr(_req, _cb) { }
+      discover: function (_req, _cb) { },
+
+      powerControllerTurnOn: function (_req, _cb) { },
+      powerControllerTurnOff: function (_req, _cb) { },
+
+      cameraStreamInitialize: function (_req, _cb) { },
     }
   })
 
@@ -31,5 +34,10 @@ describe('getHlrFn', () => {
   it('should call turnoff fnc from power control turn off event', () => {
     const event = require('./sample_messages/PowerController/PowerController.TurnOff.request.json')
     expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.powerControllerTurnOff)
+  })
+
+  it('should call camera stream controller fnc from get camera stream event', () => {
+    const event = require('./sample_messages/CameraStreamController/CameraStreamController.request.json')
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.cameraStreamInitialize)
   })
 })
