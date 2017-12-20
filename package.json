@@ -1,0 +1,33 @@
+{
+  "name": "alehos3",
+  "version": "0.1.0",
+  "description": "Make Alexa homeskill quick, with v3",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "npm run lint && mocha --bail --reporter spec 2>&1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nqd/alehos3.git"
+  },
+  "keywords": [
+    "alexa",
+    "homeskill",
+    "sdk",
+    "v3"
+  ],
+  "author": "nqdinh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nqd/alehos3/issues"
+  },
+  "homepage": "https://github.com/nqd/alehos3#readme",
+  "devDependencies": {
+    "mocha": "^4.0.1",
+    "sinon": "^4.1.3",
+    "standard": "^10.0.3"
+  }
+}
