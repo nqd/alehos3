@@ -9,7 +9,12 @@ module.exports = {
     NAME_TURNON: 'TurnOn',
     NAME_TURNOFF: 'TurnOff',
 
+    // brightness
+    NAME_SPACE_BRIGHTNESSCONTROLLER: 'Alexa.BrightnessController',
+    NAME_ADJUSTBRIGHTNESS: 'AdjustBrightness',
+    NAME_SETBRIGHTNESS: 'SetBrightness',
+
     // camera
-    NAMESPACE_CAMERA_STREAMCONTROLLER: 'Alexa.CameraStreamController',
+    NAMESPACE_CAMERASTREAMCONTROLLER: 'Alexa.CameraStreamController',
     NAME_INITIALIZECAMERASTREAM: 'InitializeCameraStreams',
 }

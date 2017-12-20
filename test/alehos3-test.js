@@ -18,6 +18,9 @@ describe('getHlrFn', () => {
       powerControllerTurnOff: function (_req, _cb) { },
 
       cameraStreamInitialize: function (_req, _cb) { },
+
+      brightnessControllerAdjust: function (_req, _cb) { },
+      brightnessControllerSet: function (_req, _cb) { },
     }
   })
 
@@ -26,6 +29,7 @@ describe('getHlrFn', () => {
     expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.discover)
   })
 
+  // power controller
   it('should call turnon fnc from power control turn on event', () => {
     const event = require('./sample_messages/PowerController/PowerController.TurnOn.request.json')
     expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.powerControllerTurnOn)
@@ -36,8 +40,19 @@ describe('getHlrFn', () => {
     expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.powerControllerTurnOff)
   })
 
+  // camera
   it('should call camera stream controller fnc from get camera stream event', () => {
     const event = require('./sample_messages/CameraStreamController/CameraStreamController.request.json')
     expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.cameraStreamInitialize)
+  })
+
+  // brightness
+  it('should call adjust brightness controller fnc from related request', () => {
+    const event = require('./sample_messages/BrightnessController/BrightnessController.AdjustBrightness.request.json')
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.brightnessControllerAdjust)
+  })
+  it('should call set brightness controller fnc from related request', () => {
+    const event = require('./sample_messages/BrightnessController/BrightnessController.SetBrightness.request.json')
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.brightnessControllerSet)
   })
 })

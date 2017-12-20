@@ -30,9 +30,19 @@ Alehos.prototype._getHlrFn = function (header) {
 
             break
 
-        case this.code.NAMESPACE_CAMERA_STREAMCONTROLLER:
+        // camera
+        case this.code.NAMESPACE_CAMERASTREAMCONTROLLER:
             if (header.name === this.code.NAME_INITIALIZECAMERASTREAM)
                 fn = this.handlers['cameraStreamInitialize']
+
+            break
+
+        // camera
+        case this.code.NAME_SPACE_BRIGHTNESSCONTROLLER:
+            if (header.name === this.code.NAME_ADJUSTBRIGHTNESS)
+                fn = this.handlers['brightnessControllerAdjust']
+            else if (header.name === this.code.NAME_SETBRIGHTNESS)
+                fn = this.handlers['brightnessControllerSet']
 
             break
     }
