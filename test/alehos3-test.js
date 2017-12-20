@@ -19,7 +19,11 @@ describe('getHlrFn', () => {
       cameraStreamInitialize: function (_req, _cb) { },
 
       brightnessControllerAdjust: function (_req, _cb) { },
-      brightnessControllerSet: function (_req, _cb) { }
+      brightnessControllerSet: function (_req, _cb) { },
+
+      thermostatAdjustTargetTemperature: function (_req, _cb) { },
+      thermostatSetTargetTemperature: function (_req, _cb) { },
+      thermostatSetThermostatMode: function (_req, _cb) { }
     }
   })
 
@@ -53,5 +57,19 @@ describe('getHlrFn', () => {
   it('should call set brightness controller fnc from related request', () => {
     const event = require('./sample_messages/BrightnessController/BrightnessController.SetBrightness.request.json')
     expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.brightnessControllerSet)
+  })
+
+  // thermostat
+  it('should call adjust temperature fnc from related request', () => {
+    const event = require('./sample_messages/ThermostatController/ThermostatController.AdjustTargetTemperature.request.json')
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.thermostatAdjustTargetTemperature)
+  })
+  it('should call set target temperature fnc from related request', () => {
+    const event = require('./sample_messages/ThermostatController/ThermostatController.SetTargetTemperature.SingleMode.request.json')
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.thermostatSetTargetTemperature)
+  })
+  it('should call set thermostat mode fnc from related request', () => {
+    const event = require('./sample_messages/ThermostatController/ThermostatController.SetThermostatMode.request.json')
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.thermostatSetThermostatMode)
   })
 })

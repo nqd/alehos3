@@ -16,26 +16,52 @@ let Alehos = function () {
 Alehos.prototype._getHlrFn = function (header) {
   let fn
   switch (header.namespace) {
-        // discovery
+    // discovery
     case this.code.NAMESPACE_DISCOVERY:
       fn = this.handlers['discover']
       break
 
-        // power control
+    // power control
     case this.code.NAMESPACE_POWERCONTROL:
-      if (header.name === this.code.NAME_TURNON) { fn = this.handlers['powerControllerTurnOn'] } else if (header.name === this.code.NAME_TURNOFF) { fn = this.handlers['powerControllerTurnOff'] }
+      if (header.name === this.code.NAME_TURNON) {
+        fn = this.handlers['powerControllerTurnOn']
+      }
+      if (header.name === this.code.NAME_TURNOFF) {
+        fn = this.handlers['powerControllerTurnOff']
+      }
 
       break
 
-        // camera
+    // camera
     case this.code.NAMESPACE_CAMERASTREAMCONTROLLER:
-      if (header.name === this.code.NAME_INITIALIZECAMERASTREAM) { fn = this.handlers['cameraStreamInitialize'] }
+      if (header.name === this.code.NAME_INITIALIZECAMERASTREAM) {
+        fn = this.handlers['cameraStreamInitialize']
+      }
 
       break
 
-        // camera
-    case this.code.NAME_SPACE_BRIGHTNESSCONTROLLER:
-      if (header.name === this.code.NAME_ADJUSTBRIGHTNESS) { fn = this.handlers['brightnessControllerAdjust'] } else if (header.name === this.code.NAME_SETBRIGHTNESS) { fn = this.handlers['brightnessControllerSet'] }
+    // brightness
+    case this.code.NAMESPACE_BRIGHTNESSCONTROLLER:
+      if (header.name === this.code.NAME_ADJUSTBRIGHTNESS) {
+        fn = this.handlers['brightnessControllerAdjust']
+      }
+      if (header.name === this.code.NAME_SETBRIGHTNESS) {
+        fn = this.handlers['brightnessControllerSet']
+      }
+
+      break
+
+    // thermostat
+    case this.code.NAMESPACE_THERMOSTATCONTROLLER:
+      if (header.name === this.code.NAME_ADJUSTTARGETTEMPERATURE) {
+        fn = this.handlers['thermostatAdjustTargetTemperature']
+      }
+      if (header.name === this.code.NAME_SETTARGETTEMPERATURE) {
+        fn = this.handlers['thermostatSetTargetTemperature']
+      }
+      if (header.name === this.code.NAME_SETTHERMOSTATMODE) {
+        fn = this.handlers['thermostatSetThermostatMode']
+      }
 
       break
   }
