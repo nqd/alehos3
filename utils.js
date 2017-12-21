@@ -20,6 +20,14 @@ function createMessageId() {
  * @param {any} req 
  */
 function createResponseEvent(req) {
+  // clone the req
+  let event = JSON.parse(JSON.stringify(req.directive))
+  event.header.namespace = 'Alexa'
+  event.header.name= 'Response'
+
+  event.header.messageId = createMessageId()
+
+  return event
 }
 
 module.exports = {

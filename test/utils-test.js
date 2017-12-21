@@ -14,5 +14,7 @@ describe('responseEvent', () => {
       payloadVersion: '3',
       correlationToken: req.directive.header.correlationToken
     })
+
+    done()
   })
 })
