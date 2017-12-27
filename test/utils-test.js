@@ -17,4 +17,18 @@ describe('responseEvent', () => {
 
     done()
   })
+
+  it('should generate response event for discovery', done => {
+    const req = require('./sample_messages/Discovery/Discovery.request.json')
+    const resEvent = utils.createResponseEvent(req)
+
+    expect(resEvent.header).to.contains({
+      namespace: 'Alexa.Discovery',
+      name: 'Discover.Response',
+      payloadVersion: '3',
+      correlationToken: req.directive.header.correlationToken
+    })
+
+    done()
+  })
 })
