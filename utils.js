@@ -34,6 +34,8 @@ function createResponseEvent (req) {
 
   event.header.messageId = createMessageId()
 
+  event.payload = {}
+
   return event
 }
 

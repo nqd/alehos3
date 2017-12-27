@@ -16,6 +16,9 @@ describe('responseEvent', () => {
     })
     expect(resEvent.header).to.has.property('messageId')
 
+    expect(resEvent.endpoint).to.eql(req.directive.endpoint)
+    expect(resEvent.payload).to.eql({})
+
     done()
   })
 
