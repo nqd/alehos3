@@ -94,4 +94,19 @@ describe('handler', () => {
     })
     sinon.assert.calledWith(cbSpy, null, matched)
   })
+
+  it('should call the equivalent fuc with provided request type', () => {
+    // given
+    const event = require('./sample_messages/ThermostatController/ThermostatController.SetThermostatMode.request.json')
+    const context = {}
+    let thermostatSetThermostatMode = sinon.spy()
+    app.registerHandler('thermostatSetThermostatMode', thermostatSetThermostatMode)
+    // when
+    app.handle(event, context, (_err, _payload) => { })
+    // then
+    sinon.assert.calledWith(
+      thermostatSetThermostatMode,
+      sinon.match.has('event', event).and(sinon.match.has('context', context))
+    )
+  })
 })
