@@ -85,4 +85,50 @@ Alehos.prototype._getHlrFn = function (header) {
   return fn
 }
 
+const utils = require('./utils')
+function _genRes (req, res) {
+  let eventRes = utils.createResponseEvent(req.event)
+
+  if (res.payload) {
+    eventRes.payload = res.payload
+  }
+  // if err, update the name
+  if (res.err) {
+    eventRes.header.name = 'ErrorResponse'
+    // and update payload type
+    eventRes.payload.type = res.err.code
+  }
+
+  return {
+    event: eventRes
+  }
+}
+
+Alehos.prototype.handle = function (event, context, cb) {
+  const reqHeader = event && event.directive && event.directive.header
+  const req = {
+    event: event,
+    context: context
+  }
+
+  let handFn = this._getHlrFn(reqHeader)
+
+  let handFnCb = (err, payload) => {
+    let res = {
+      err: err,
+      payload: payload
+    }
+    return cb(null, _genRes(req, res))
+  }
+
+  // without supported function
+  if (handFn === undefined) {
+    let err = new Error()
+    err.code = this.code.ERR_INVALID_DIRECTIVE
+    return handFnCb(err)
+  }
+  // else, call the handler function
+  handFn(req, handFnCb)
+}
+
 module.exports = Alehos

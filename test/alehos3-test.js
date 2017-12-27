@@ -2,7 +2,7 @@
 
 let Alehos = require('../index')
 let expect = require('chai').expect
-
+let sinon = require('sinon')
 let app
 
 describe('getHlrFn', () => {
@@ -71,5 +71,27 @@ describe('getHlrFn', () => {
   it('should call set thermostat mode fnc from related request', () => {
     const event = require('./sample_messages/ThermostatController/ThermostatController.SetThermostatMode.request.json')
     expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.thermostatSetThermostatMode)
+  })
+})
+
+describe('handler', () => {
+  beforeEach(() => {
+    app = new Alehos()
+  })
+  it('should return not supported for not register service yet', () => {
+    const event = require('./sample_messages/ThermostatController/ThermostatController.SetThermostatMode.request.json')
+    const context = {}
+
+    let cbSpy = sinon.spy()
+    app.handle(event, context, cbSpy)
+
+    let matched = sinon.match(obj => {
+      return obj.event.header.namespace === 'Alexa' &&
+        obj.event.header.name === 'ErrorResponse' &&
+        obj.event.header.payloadVersion === '3' &&
+        obj.event.header.correlationToken === event.directive.header.correlationToken &&
+        obj.event.payload.type === 'INVALID_DIRECTIVE'
+    })
+    sinon.assert.calledWith(cbSpy, null, matched)
   })
 })
