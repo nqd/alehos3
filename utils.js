@@ -6,24 +6,24 @@
  * although it should not be used to support business logic.
  * Every message must have this field populated.
  * Any string of alphanumeric characters and dashes less than 128 characters is valid,
- * but a version 4 UUID, which is a UUID generated from random numbers, is recommended. 
- * 
+ * but a version 4 UUID, which is a UUID generated from random numbers, is recommended.
+ *
  * @returns {string} uuid
  */
-function createMessageId() {
+function createMessageId () {
   const uuidv4 = require('uuid/v4')
   return uuidv4()
 }
 /**
- * 
- * 
- * @param {any} req 
+ *
+ *
+ * @param {any} req
  */
-function createResponseEvent(req) {
+function createResponseEvent (req) {
   // clone the req
   let event = JSON.parse(JSON.stringify(req.directive))
   event.header.namespace = 'Alexa'
-  event.header.name= 'Response'
+  event.header.name = 'Response'
 
   event.header.messageId = createMessageId()
 
