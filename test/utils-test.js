@@ -14,6 +14,7 @@ describe('responseEvent', () => {
       payloadVersion: '3',
       correlationToken: req.directive.header.correlationToken
     })
+    expect(resEvent.header).to.has.property('messageId')
 
     done()
   })
@@ -25,9 +26,9 @@ describe('responseEvent', () => {
     expect(resEvent.header).to.contains({
       namespace: 'Alexa.Discovery',
       name: 'Discover.Response',
-      payloadVersion: '3',
-      correlationToken: req.directive.header.correlationToken
+      payloadVersion: '3'
     })
+    expect(resEvent.header).to.has.property('messageId')
 
     done()
   })

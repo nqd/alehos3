@@ -22,8 +22,15 @@ function createMessageId () {
 function createResponseEvent (req) {
   // clone the req
   let event = JSON.parse(JSON.stringify(req.directive))
-  event.header.namespace = 'Alexa'
-  event.header.name = 'Response'
+
+  if (req.directive.header.namespace === 'Alexa.Discovery' &&
+    req.directive.header.name === 'Discover') {
+    event.header.namespace = 'Alexa.Discovery'
+    event.header.name = 'Discover.Response'
+  } else {
+    event.header.namespace = 'Alexa'
+    event.header.name = 'Response'
+  }
 
   event.header.messageId = createMessageId()
 
