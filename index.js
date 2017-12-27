@@ -89,9 +89,6 @@ const utils = require('./utils')
 function _genRes (req, res) {
   let eventRes = utils.createResponseEvent(req.event)
 
-  if (res.payload) {
-    eventRes.payload = res.payload
-  }
   // if err, update the name
   if (res.err) {
     eventRes.header.name = 'ErrorResponse'
@@ -99,8 +96,13 @@ function _genRes (req, res) {
     eventRes.payload.type = res.err.code
   }
 
+  let context = {
+    properties: res.payload
+  }
+
   return {
-    event: eventRes
+    event: eventRes,
+    context: context
   }
 }
 
