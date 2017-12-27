@@ -3,6 +3,7 @@
 let Alehos = require('../index')
 let expect = require('chai').expect
 let sinon = require('sinon')
+let _ = require('underscore')
 let app
 
 describe('getHlrFn', () => {
@@ -107,6 +108,41 @@ describe('handler', () => {
     sinon.assert.calledWith(
       thermostatSetThermostatMode,
       sinon.match.has('event', event).and(sinon.match.has('context', context))
+    )
+  })
+
+  it('should return the right payload from equivalent fnc', () => {
+    // given
+    const event = require('./sample_messages/ThermostatController/ThermostatController.SetThermostatMode.request.json')
+    const context = {}
+    const contextProperty =
+      [
+        {
+          'namespace': 'Alexa.ThermostatController',
+          'name': 'targetSetpoint',
+          'value': {
+            'value': 25,
+            'scale': 'CELSIUS'
+          },
+          'timeOfSample': '2017-09-27T18:30:30.45Z',
+          'uncertaintyInMilliseconds': 200
+        }
+      ]
+    let thermostatSetThermostatMode = (req, cb) => {
+      return cb(null, contextProperty)
+    }
+    app.registerHandler('thermostatSetThermostatMode', thermostatSetThermostatMode)
+    // when
+    let resSpy = sinon.spy()
+    app.handle(event, context, resSpy)
+    // then
+    let matched = obj => {
+      console.log(obj)
+      return _.isEqual(obj.context.properties, contextProperty)
+    }
+    sinon.assert.calledWith(resSpy,
+      null,
+      sinon.match(matched)
     )
   })
 })
