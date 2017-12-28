@@ -111,6 +111,76 @@ describe('handler', () => {
     )
   })
 
+  it('should return the right payload for discovery', () => {
+    // given
+    const event = require('./sample_messages/Discovery/Discovery.request.json')
+    const context = {}
+    const devices = [
+      {
+        'endpointId': 'endpoint-001',
+        'manufacturerName': 'Sample Manufacturer',
+        'friendlyName': 'Switch',
+        'description': '001 Switch that can only be turned on/off',
+        'displayCategories': [
+          'SWITCH'
+        ],
+        'cookie': {
+          'detail1': 'For simplicity, this is the only appliance',
+          'detail2': 'that has some values in the additionalApplianceDetails'
+        },
+        'capabilities': [
+          {
+            'type': 'AlexaInterface',
+            'interface': 'Alexa',
+            'version': '3'
+          },
+          {
+            'type': 'AlexaInterface',
+            'interface': 'Alexa.PowerController',
+            'version': '3',
+            'properties': {
+              'supported': [
+                {
+                  'name': 'powerState'
+                }
+              ],
+              'proactivelyReported': true,
+              'retrievable': true
+            }
+          },
+          {
+            'type': 'AlexaInterface',
+            'interface': 'Alexa.EndpointHealth',
+            'version': '3',
+            'properties': {
+              'supported': [
+                {
+                  'name': 'connectivity'
+                }
+              ],
+              'proactivelyReported': true,
+              'retrievable': true
+            }
+          }
+        ]
+      }]
+    let discover = (req, cb) => {
+      return cb(null, devices)
+    }
+    app.registerHandler('discover', discover)
+    // when
+    let resSpy = sinon.spy()
+    app.handle(event, context, resSpy)
+    // then
+    let matched = obj => {
+      console.log(obj)
+      return _.isEqual(obj.event.payload.endpoint, devices)
+    }
+    sinon.assert.calledWith(resSpy,
+      null,
+      sinon.match(matched)
+    )
+  })
   it('should return the right payload from equivalent fnc', () => {
     // given
     const event = require('./sample_messages/ThermostatController/ThermostatController.SetThermostatMode.request.json')
