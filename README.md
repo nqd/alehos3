@@ -49,9 +49,13 @@ Example:
 ```
 // if the device is un reachable
 let err = new Error()
-err.code = alehos.code.ERROR_TARGET_OFFLINE
+err.code = alehos.code.ERR_ENDPOINT_UNREACHABLE
 return cb(err)
 ```
+
+# Todos
+- [ ] support all functions
+- [ ] set/get the event function
 
 # License
 
