@@ -173,8 +173,7 @@ describe('handler', () => {
     app.handle(event, context, resSpy)
     // then
     let matched = obj => {
-      console.log(obj)
-      return _.isEqual(obj.event.payload.endpoint, devices)
+      return _.isEqual(obj.event.payload.endpoints, devices) && !obj.context
     }
     sinon.assert.calledWith(resSpy,
       null,

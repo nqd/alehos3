@@ -86,24 +86,44 @@ Alehos.prototype._getHlrFn = function (header) {
 }
 
 const utils = require('./utils')
+/**
+ * generate the response
+ *
+ * @param {object} req {event: {}, context: {}}
+ * The request from lambda
+ * @param {object} res {err: {}, payload: {}}
+ * From user response handler
+ * @returns {object}
+ */
 function _genRes (req, res) {
-  let eventRes = utils.createResponseEvent(req.event)
+  let response = {
+    event: utils.createResponseEvent(req.event)
+  }
 
   // if err, update the name
   if (res.err) {
-    eventRes.header.name = 'ErrorResponse'
+    response.event.header.name = 'ErrorResponse'
     // and update payload type
-    eventRes.payload.type = res.err.code
+    response.event.payload.type = res.err.code
+    // then return
+    return response
   }
 
+  // if discovery, payload is in event
+  if (response.event.header.namespace === code.NAMESPACE_DISCOVERY) {
+    response.event.payload = {
+      endpoints: res.payload
+    }
+    // return
+    return response
+  }
+
+  // otherwise, payload is in context
   let context = {
     properties: res.payload
   }
-
-  return {
-    event: eventRes,
-    context: context
-  }
+  response.context = context
+  return response
 }
 
 Alehos.prototype.handle = function (event, context, cb) {
