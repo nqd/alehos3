@@ -80,6 +80,14 @@ Alehos.prototype._getHlrFn = function (header) {
       }
 
       break
+
+    // authorization
+    case this.code.NAMESPACE_AUTHORIZATION:
+      if (header.name === this.code.NAME_ACCEPTGRANT) {
+        fn = this.handlers['authorization']
+      }
+
+      break
   }
 
   return fn
@@ -106,6 +114,12 @@ function _genRes (req, res) {
     // and update payload type
     response.event.payload.type = res.err.code
     // then return
+    return response
+  }
+
+  // for authorization, we dont need context
+  if (req.event.directive.header.namespace === 'Alexa.Authorization' &&
+    req.event.directive.header.name === 'AcceptGrant') {
     return response
   }
 

@@ -23,10 +23,12 @@ function createResponseEvent (req) {
   // clone the req
   let event = JSON.parse(JSON.stringify(req.directive))
 
-  if (req.directive.header.namespace === 'Alexa.Discovery' &&
-    req.directive.header.name === 'Discover') {
+  if (req.directive.header.namespace === 'Alexa.Discovery' && req.directive.header.name === 'Discover') {
     event.header.namespace = 'Alexa.Discovery'
     event.header.name = 'Discover.Response'
+  } else if (req.directive.header.namespace === 'Alexa.Authorization' && req.directive.header.name === 'AcceptGrant') {
+    event.header.namespace = req.directive.header.namespace
+    event.header.name = 'AcceptGrant.Response'
   } else {
     event.header.namespace = 'Alexa'
     event.header.name = 'Response'

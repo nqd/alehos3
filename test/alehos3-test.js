@@ -24,7 +24,9 @@ describe('getHlrFn', () => {
 
       thermostatAdjustTargetTemperature: function (_req, _cb) { },
       thermostatSetTargetTemperature: function (_req, _cb) { },
-      thermostatSetThermostatMode: function (_req, _cb) { }
+      thermostatSetThermostatMode: function (_req, _cb) { },
+
+      authorization: function (_req, _cb) { }
     }
   })
 
@@ -72,6 +74,12 @@ describe('getHlrFn', () => {
   it('should call set thermostat mode fnc from related request', () => {
     const event = require('./sample_messages/ThermostatController/ThermostatController.SetThermostatMode.request.json')
     expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.thermostatSetThermostatMode)
+  })
+
+  // authorization
+  it('should call authorization fnc from related request', () => {
+    const event = require('./sample_messages/Authorization/Authorization.AcceptGrant.request.json')
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.authorization)
   })
 })
 
@@ -207,6 +215,30 @@ describe('handler', () => {
     // then
     let matched = obj => {
       return _.isEqual(obj.context.properties, contextProperty)
+    }
+    sinon.assert.calledWith(resSpy,
+      null,
+      sinon.match(matched)
+    )
+  })
+  it('should return the right payload from authorization fnc', () => {
+    // given
+    const event = require('./sample_messages/Authorization/Authorization.AcceptGrant.request.json')
+    const context = {}
+    let authorization = (req, cb) => {
+      return cb(null)
+    }
+    app.registerHandler('authorization', authorization)
+    // when
+    let resSpy = sinon.spy()
+    app.handle(event, context, resSpy)
+    // then
+    let matched = obj => {
+      console.log(obj)
+      return obj.event.header.namespace === 'Alexa.Authorization' &&
+        obj.event.header.name === 'AcceptGrant.Response' &&
+        obj.event.header.payloadVersion === '3' &&
+        obj.context === undefined
     }
     sinon.assert.calledWith(resSpy,
       null,

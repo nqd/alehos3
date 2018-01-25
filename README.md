@@ -35,6 +35,7 @@ exports.handler = function(event, context, cb) {
 - `discover`: discovery
 - `powerControllerTurnOn`: turn on
 - `powerControllerTurnOff`: turn off
+- `authorization`: [Alexa.Authorization Interface](https://developer.amazon.com/docs/device-apis/alexa-authorization.html)
 
 If you don't provide equivalent function, the response will be `UnsupportedOperationError`.
 
