@@ -24,7 +24,9 @@ describe('getHlrFn', () => {
 
       thermostatAdjustTargetTemperature: function (_req, _cb) { },
       thermostatSetTargetTemperature: function (_req, _cb) { },
-      thermostatSetThermostatMode: function (_req, _cb) { }
+      thermostatSetThermostatMode: function (_req, _cb) { },
+
+      authorization: function (_req, _cb) { }
     }
   })
 
@@ -72,6 +74,12 @@ describe('getHlrFn', () => {
   it('should call set thermostat mode fnc from related request', () => {
     const event = require('./sample_messages/ThermostatController/ThermostatController.SetThermostatMode.request.json')
     expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.thermostatSetThermostatMode)
+  })
+
+  // authorization
+  it('should call authorization fnc from related request', () => {
+    const event = require('./sample_messages/Authorization/Authorization.AcceptGrant.request.json')
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.authorization)
   })
 })
 
