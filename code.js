@@ -24,6 +24,10 @@ module.exports = {
   NAME_SETTARGETTEMPERATURE: 'SetTargetTemperature',
   NAME_SETTHERMOSTATMODE: 'SetThermostatMode',
 
+  // authorization
+  NAMESPACE_AUTHORIZATION: 'Alexa.Authorization',
+  NAME_ACCEPTGRANT: 'AcceptGrant',
+
   // error
   ERR_BRIDGE_UNREACHABLE: 'BRIDGE_UNREACHABLE',
   ERR_ENDPOINT_BUSY: 'ENDPOINT_BUSY',

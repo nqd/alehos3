@@ -221,4 +221,28 @@ describe('handler', () => {
       sinon.match(matched)
     )
   })
+  it('should return the right payload from authorization fnc', () => {
+    // given
+    const event = require('./sample_messages/Authorization/Authorization.AcceptGrant.request.json')
+    const context = {}
+    let authorization = (req, cb) => {
+      return cb(null)
+    }
+    app.registerHandler('authorization', authorization)
+    // when
+    let resSpy = sinon.spy()
+    app.handle(event, context, resSpy)
+    // then
+    let matched = obj => {
+      console.log(obj)
+      return obj.event.header.namespace === 'Alexa.Authorization' &&
+        obj.event.header.name === 'AcceptGrant.Response' &&
+        obj.event.header.payloadVersion === '3' &&
+        obj.context === undefined
+    }
+    sinon.assert.calledWith(resSpy,
+      null,
+      sinon.match(matched)
+    )
+  })
 })
