@@ -173,7 +173,7 @@ describe('handler', () => {
         ]
       }]
     let discover = (req, cb) => {
-      return cb(null, devices)
+      return cb(null, null, { endpoints: devices })
     }
     app.registerHandler('discover', discover)
     // when
@@ -234,7 +234,6 @@ describe('handler', () => {
     app.handle(event, context, resSpy)
     // then
     let matched = obj => {
-      console.log(obj)
       return obj.event.header.namespace === 'Alexa.Authorization' &&
         obj.event.header.name === 'AcceptGrant.Response' &&
         obj.event.header.payloadVersion === '3' &&

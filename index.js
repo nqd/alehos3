@@ -99,7 +99,7 @@ const utils = require('./utils')
  *
  * @param {object} req {event: {}, context: {}}
  * The request from lambda
- * @param {object} res {err: {}, payload: {}}
+ * @param {object} res {err: {}, contextProperties: {}, eventPayload: {}}
  * From user response handler
  * @returns {object}
  */
@@ -124,19 +124,15 @@ function _genRes (req, res) {
   }
 
   // if discovery, payload is in event
-  if (response.event.header.namespace === code.NAMESPACE_DISCOVERY) {
-    response.event.payload = {
-      endpoints: res.payload
+  if (res.contextProperties) {
+    response.context = {
+      properties: res.contextProperties
     }
-    // return
-    return response
   }
 
-  // otherwise, payload is in context
-  let context = {
-    properties: res.payload
+  if (res.eventPayload) {
+    response.event.payload = res.eventPayload
   }
-  response.context = context
   return response
 }
 
@@ -149,10 +145,11 @@ Alehos.prototype.handle = function (event, context, cb) {
 
   let handFn = this._getHlrFn(reqHeader)
 
-  let handFnCb = (err, payload) => {
+  let handFnCb = (err, contextProperties, eventPayload) => {
     let res = {
       err: err,
-      payload: payload
+      contextProperties: contextProperties,
+      eventPayload: eventPayload
     }
     return cb(null, _genRes(req, res))
   }
