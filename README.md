@@ -40,7 +40,7 @@ exports.handler = function(event, context, cb) {
 - `powerControllerTurnOff`: turn off
 - `authorization`: [Alexa.Authorization Interface](https://developer.amazon.com/docs/device-apis/alexa-authorization.html)
 
-If you don't provide equivalent function, the response will be `UnsupportedOperationError`.
+If you don't provide equivalent function, the response will be `INVALID_DIRECTIVE`.
 
 ## req
 

@@ -173,7 +173,7 @@ describe('handler', () => {
         ]
       }]
     let discover = (req, cb) => {
-      return cb(null, devices)
+      return cb(null, null, devices)
     }
     app.registerHandler('discover', discover)
     // when
