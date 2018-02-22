@@ -1,6 +1,7 @@
 'use strict'
 
 let code = require('./code')
+let debug = require('debug')('alehos3')
 
 let Alehos = function () {
   this.code = code
@@ -137,6 +138,7 @@ function _genRes (req, res) {
 }
 
 Alehos.prototype.handle = function (event, context, cb) {
+  debug('request %o', event)
   const reqHeader = event && event.directive && event.directive.header
   const req = {
     event: event,
@@ -146,12 +148,14 @@ Alehos.prototype.handle = function (event, context, cb) {
   let handFn = this._getHlrFn(reqHeader)
 
   let handFnCb = (err, contextProperties, eventPayload) => {
-    let res = {
+    let handRes = {
       err: err,
       contextProperties: contextProperties,
       eventPayload: eventPayload
     }
-    return cb(null, _genRes(req, res))
+    let res = _genRes(req, handRes)
+    debug('response %o', res)
+    return cb(null, res)
   }
 
   // without supported function
