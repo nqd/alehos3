@@ -112,7 +112,7 @@ function _genRes (req, res) {
   if (res.err) {
     response.event.header.name = 'ErrorResponse'
     // and update payload type
-    response.event.payload.type = res.err.code
+    response.event.payload = res.err.payload
     // then return
     return response
   }
@@ -157,7 +157,9 @@ Alehos.prototype.handle = function (event, context, cb) {
   // without supported function
   if (handFn === undefined) {
     let err = new Error()
-    err.code = this.code.ERR_INVALID_DIRECTIVE
+    err.payload = {
+      type: this.code.ERR_INVALID_DIRECTIVE
+    }
     return handFnCb(err)
   }
   // else, call the handler function

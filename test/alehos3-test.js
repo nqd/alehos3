@@ -244,4 +244,40 @@ describe('handler', () => {
       sinon.match(matched)
     )
   })
+  it('should return the right error message', () => {
+    // given
+    const event = require('./sample_messages/ThermostatController/ThermostatController.SetTargetTemperature.SingleMode.request.json')
+    const context = {}
+    const errorPayload = {
+      'type': 'TEMPERATURE_VALUE_OUT_OF_RANGE',
+      'message': 'The requested temperature of -15 is out of range',
+      'validRange': {
+        'minimumValue': {
+          'value': 15.0,
+          'scale': 'CELSIUS'
+        },
+        'maximumValue': {
+          'value': 30.0,
+          'scale': 'CELSIUS'
+        }
+      }
+    }
+    let thermostatSetTarget = (req, cb) => {
+      let err = new Error()
+      err.payload = errorPayload
+      return cb(err)
+    }
+    app.registerHandler('thermostatSetTargetTemperature', thermostatSetTarget)
+    // when
+    let resSpy = sinon.spy()
+    app.handle(event, context, resSpy)
+    // then
+    let matched = obj => {
+      return _.isEqual(obj.event.payload, errorPayload)
+    }
+    sinon.assert.calledWith(resSpy,
+      null,
+      sinon.match(matched)
+    )
+  })
 })
