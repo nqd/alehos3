@@ -244,7 +244,7 @@ describe('handler', () => {
       sinon.match(matched)
     )
   })
-  it('should return the right error message', () => {
+  it('should return the right error message for thermostat TEMPERATURE_VALUE_OUT_OF_RANGE', () => {
     // given
     const event = require('./sample_messages/ThermostatController/ThermostatController.SetTargetTemperature.SingleMode.request.json')
     const context = {}
@@ -273,7 +273,36 @@ describe('handler', () => {
     app.handle(event, context, resSpy)
     // then
     let matched = obj => {
-      return _.isEqual(obj.event.payload, errorPayload)
+      return _.isEqual(obj.event.payload, errorPayload) &&
+        obj.event.header.namespace === 'Alexa' &&
+        obj.event.header.name === 'ErrorResponse'
+    }
+    sinon.assert.calledWith(resSpy,
+      null,
+      sinon.match(matched)
+    )
+  })
+  it('should return the right error message for thermostat UNSUPPORTED_THERMOSTAT_MODE', () => {
+    // given
+    const event = require('./sample_messages/ThermostatController/ThermostatController.SetThermostatMode.request.json')
+    const context = {}
+    const errorPayload = {
+      'type': 'UNSUPPORTED_THERMOSTAT_MODE'
+    }
+    let thermostatSetMode = (req, cb) => {
+      let err = new Error()
+      err.payload = errorPayload
+      return cb(err)
+    }
+    app.registerHandler('thermostatSetThermostatMode', thermostatSetMode)
+    // when
+    let resSpy = sinon.spy()
+    app.handle(event, context, resSpy)
+    // then
+    let matched = obj => {
+      return _.isEqual(obj.event.payload, errorPayload) &&
+        obj.event.header.namespace === 'Alexa.ThermostatController' &&
+        obj.event.header.name === 'ErrorResponse'
     }
     sinon.assert.calledWith(resSpy,
       null,
