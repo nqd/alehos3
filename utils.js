@@ -29,6 +29,9 @@ function createResponseEvent (req) {
   } else if (req.directive.header.namespace === 'Alexa.Authorization' && req.directive.header.name === 'AcceptGrant') {
     event.header.namespace = req.directive.header.namespace
     event.header.name = 'AcceptGrant.Response'
+  } else if (req.directive.header.namespace === 'Alexa.CameraStreamController' && req.directive.header.name === 'InitializeCameraStreams') {
+    event.header.namespace = req.directive.header.namespace
+    event.header.name = 'Response'
   } else {
     event.header.namespace = 'Alexa'
     event.header.name = 'Response'

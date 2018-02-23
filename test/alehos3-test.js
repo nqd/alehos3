@@ -310,3 +310,17 @@ describe('handler', () => {
     )
   })
 })
+
+describe('createResponseEvent', () => {
+  let utils = require('../utils')
+  it('should create right namespace for camera stream controller', done => {
+    const event = require('./sample_messages/CameraStreamController/CameraStreamController.request.json')
+    expect(utils.createResponseEvent(event)).to.has.property('header')
+      .that.contain({
+        'namespace': 'Alexa.CameraStreamController',
+        'name': 'Response',
+        'payloadVersion': '3'
+      })
+    done()
+  })
+})
