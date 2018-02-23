@@ -114,6 +114,20 @@ function _genRes (req, res) {
     response.event.header.name = 'ErrorResponse'
     // and update payload type
     response.event.payload = res.err.payload
+
+    // thermostat controller
+    // https://github.com/alexa/alexa-smarthome/blob/master/validation_schemas/alexa_smart_home_message_schema.json#L2098
+    if (res.err.payload) {
+      if (['THERMOSTAT_IS_OFF',
+        'UNSUPPORTED_THERMOSTAT_MODE',
+        'DUAL_SETPOINTS_UNSUPPORTED',
+        'TRIPLE_SETPOINTS_UNSUPPORTED',
+        'UNWILLING_TO_SET_VALUE'
+      ].indexOf(res.err.payload.type) >= 0) {
+        response.event.header.namespace = 'Alexa.ThermostatController'
+      }
+    }
+
     // then return
     return response
   }
