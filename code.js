@@ -28,6 +28,10 @@ module.exports = {
   NAMESPACE_AUTHORIZATION: 'Alexa.Authorization',
   NAME_ACCEPTGRANT: 'AcceptGrant',
 
+  // Scene
+  NAMESPACE_SCENECONTROLLER: 'Alexa.SceneController',
+  NAME_ACTIVATIONSTARTED: 'ActivationStarted',
+  NAME_DEACTIVATIONSTARTED: 'DeactivationStarted',
   // error
   ERR_BRIDGE_UNREACHABLE: 'BRIDGE_UNREACHABLE',
   ERR_ENDPOINT_BUSY: 'ENDPOINT_BUSY',

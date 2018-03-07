@@ -76,6 +76,15 @@ describe('getHlrFn', () => {
     expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.thermostatSetThermostatMode)
   })
 
+  // Scene
+  it('should call sceneControllerActivationStarted controller fnc from related request', () => {
+    const event = require('./sample_messages/SceneController/SceneController.Activate.request.json')
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.sceneControllerActivationStarted)
+  })
+  it('should call sceneControllerDeactivationStarted controller fnc from related request', () => {
+    const event = require('./sample_messages/SceneController/SceneController.Deactivate.request.json')
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.sceneControllerDeactivationStarted)
+  })
   // authorization
   it('should call authorization fnc from related request', () => {
     const event = require('./sample_messages/Authorization/Authorization.AcceptGrant.request.json')
@@ -173,7 +182,7 @@ describe('handler', () => {
         ]
       }]
     let discover = (req, cb) => {
-      return cb(null, null, { endpoints: devices })
+      return cb(null, null, {endpoints: devices})
     }
     app.registerHandler('discover', discover)
     // when

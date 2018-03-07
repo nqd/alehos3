@@ -81,6 +81,15 @@ Alehos.prototype._getHlrFn = function (header) {
       }
 
       break
+    // Scene
+    case this.code.NAMESPACE_SCENECONTROLLER:
+      if (header.name === this.code.NAME_ACTIVATIONSTARTED) {
+        fn = this.handlers['sceneControllerActivationStarted']
+      }
+      if (header.name === this.code.NAME_DEACTIVATIONSTARTED) {
+        fn = this.handlers['sceneControllerDeactivationStarted']
+      }
+      break
 
     // authorization
     case this.code.NAMESPACE_AUTHORIZATION:
@@ -95,6 +104,7 @@ Alehos.prototype._getHlrFn = function (header) {
 }
 
 const utils = require('./utils')
+
 /**
  * generate the response
  *
