@@ -3,7 +3,7 @@
 let code = require('./code')
 let debug = require('debug')('alehos3')
 
-let Alehos = function() {
+let Alehos = function () {
   this.code = code
   this.handlers = {}
 }
@@ -16,7 +16,7 @@ let Alehos = function() {
  * @param {string} name
  * @param {function} fnc
  */
-Alehos.prototype.registerHandler = function(eventName, handler) {
+Alehos.prototype.registerHandler = function (eventName, handler) {
   if (typeof handler !== 'function') {
     throw new Error(`Event handler for '${eventName}' was not a function`)
   }
@@ -30,7 +30,7 @@ Alehos.prototype.registerHandler = function(eventName, handler) {
  * @param {string} header
  * @returns {function}
  */
-Alehos.prototype._getHlrFn = function(header) {
+Alehos.prototype._getHlrFn = function (header) {
   let fn
   switch (header.namespace) {
     // discovery
@@ -114,7 +114,7 @@ const utils = require('./utils')
  * From user response handler
  * @returns {object}
  */
-function _genRes(req, res) {
+function _genRes (req, res) {
   let response = {
     event: utils.createResponseEvent(req.event)
   }
@@ -129,11 +129,11 @@ function _genRes(req, res) {
     // https://github.com/alexa/alexa-smarthome/blob/master/validation_schemas/alexa_smart_home_message_schema.json#L2098
     if (res.err.payload) {
       if (['THERMOSTAT_IS_OFF',
-          'UNSUPPORTED_THERMOSTAT_MODE',
-          'DUAL_SETPOINTS_UNSUPPORTED',
-          'TRIPLE_SETPOINTS_UNSUPPORTED',
-          'UNWILLING_TO_SET_VALUE'
-        ].indexOf(res.err.payload.type) >= 0) {
+        'UNSUPPORTED_THERMOSTAT_MODE',
+        'DUAL_SETPOINTS_UNSUPPORTED',
+        'TRIPLE_SETPOINTS_UNSUPPORTED',
+        'UNWILLING_TO_SET_VALUE'
+      ].indexOf(res.err.payload.type) >= 0) {
         response.event.header.namespace = 'Alexa.ThermostatController'
       }
     }
@@ -161,7 +161,7 @@ function _genRes(req, res) {
   return response
 }
 
-Alehos.prototype.handle = function(event, context, cb) {
+Alehos.prototype.handle = function (event, context, cb) {
   debug('request %o', event)
   const reqHeader = event && event.directive && event.directive.header
   const req = {
