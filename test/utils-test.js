@@ -35,4 +35,30 @@ describe('responseEvent', () => {
 
     done()
   })
+  it('should generate response event for scene control activate', done => {
+    const req = require('./sample_messages/SceneController/SceneController.Activate.request.json')
+    const resEvent = utils.createResponseEvent(req)
+
+    expect(resEvent.header).to.contains({
+      namespace: 'Alexa.SceneController',
+      name: 'ActivationStarted',
+      payloadVersion: '3'
+    })
+    expect(resEvent.header).to.has.property('messageId')
+
+    done()
+  })
+  it('should generate response event for scene control deactivate', done => {
+    const req = require('./sample_messages/SceneController/SceneController.Deactivate.request.json')
+    const resEvent = utils.createResponseEvent(req)
+
+    expect(resEvent.header).to.contains({
+      namespace: 'Alexa.SceneController',
+      name: 'DeactivationStarted',
+      payloadVersion: '3'
+    })
+    expect(resEvent.header).to.has.property('messageId')
+
+    done()
+  })
 })

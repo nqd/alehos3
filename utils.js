@@ -14,6 +14,7 @@ function createMessageId () {
   const uuidv4 = require('uuid/v4')
   return uuidv4()
 }
+
 /**
  *
  *
@@ -32,6 +33,14 @@ function createResponseEvent (req) {
   } else if (req.directive.header.namespace === 'Alexa.CameraStreamController' && req.directive.header.name === 'InitializeCameraStreams') {
     event.header.namespace = req.directive.header.namespace
     event.header.name = 'Response'
+  } else if (req.directive.header.namespace === 'Alexa.SceneController') {
+    event.header.namespace = req.directive.header.namespace
+    if (req.directive.header.name === 'Activate') {
+      event.header.name = 'ActivationStarted'
+    }
+    if (req.directive.header.name === 'Deactivate') {
+      event.header.name = 'DeactivationStarted'
+    }
   } else {
     event.header.namespace = 'Alexa'
     event.header.name = 'Response'
