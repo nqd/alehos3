@@ -30,8 +30,8 @@ module.exports = {
 
   // Scene
   NAMESPACE_SCENECONTROLLER: 'Alexa.SceneController',
-  NAME_ACTIVATIONSTARTED: 'ActivationStarted',
-  NAME_DEACTIVATIONSTARTED: 'DeactivationStarted',
+  NAME_ACTIVATE: 'Activate',
+  NAME_DEACTIVATE: 'Deactivate',
   // error
   ERR_BRIDGE_UNREACHABLE: 'BRIDGE_UNREACHABLE',
   ERR_ENDPOINT_BUSY: 'ENDPOINT_BUSY',

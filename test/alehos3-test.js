@@ -77,13 +77,13 @@ describe('getHlrFn', () => {
   })
 
   // Scene
-  it('should call sceneControllerActivationStarted controller fnc from related request', () => {
+  it('should call sceneControllerActivate controller fnc from related request', () => {
     const event = require('./sample_messages/SceneController/SceneController.Activate.request.json')
-    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.sceneControllerActivationStarted)
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.sceneControllerActivate)
   })
-  it('should call sceneControllerDeactivationStarted controller fnc from related request', () => {
+  it('should call sceneControllerDeactivate controller fnc from related request', () => {
     const event = require('./sample_messages/SceneController/SceneController.Deactivate.request.json')
-    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.sceneControllerDeactivationStarted)
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.sceneControllerDeactivate)
   })
   // authorization
   it('should call authorization fnc from related request', () => {

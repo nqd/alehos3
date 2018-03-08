@@ -83,11 +83,11 @@ Alehos.prototype._getHlrFn = function (header) {
       break
     // Scene
     case this.code.NAMESPACE_SCENECONTROLLER:
-      if (header.name === this.code.NAME_ACTIVATIONSTARTED) {
-        fn = this.handlers['sceneControllerActivationStarted']
+      if (header.name === this.code.NAME_ACTIVATE) {
+        fn = this.handlers['sceneControllerActivate']
       }
-      if (header.name === this.code.NAME_DEACTIVATIONSTARTED) {
-        fn = this.handlers['sceneControllerDeactivationStarted']
+      if (header.name === this.code.NAME_DEACTIVATE) {
+        fn = this.handlers['sceneControllerDeactivate']
       }
       break
 
