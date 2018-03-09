@@ -85,6 +85,15 @@ describe('getHlrFn', () => {
     const event = require('./sample_messages/SceneController/SceneController.Deactivate.request.json')
     expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.sceneControllerDeactivate)
   })
+  // Lock
+  it('should call lockControllerLock controller fnc from related request', () => {
+    const event = require('./sample_messages/LockController/LockController.Lock.request.json')
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.lockControllerLock)
+  })
+  it('should call lockControllerUnlock controller fnc from related request', () => {
+    const event = require('./sample_messages/LockController/LockController.Unlock.request.json')
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.lockControllerUnlock)
+  })
   // authorization
   it('should call authorization fnc from related request', () => {
     const event = require('./sample_messages/Authorization/Authorization.AcceptGrant.request.json')
