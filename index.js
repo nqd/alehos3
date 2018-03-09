@@ -90,6 +90,15 @@ Alehos.prototype._getHlrFn = function (header) {
         fn = this.handlers['sceneControllerDeactivate']
       }
       break
+    // Lock
+    case this.code.NAMESPACE_LOCKCONTROLLER:
+      if (header.name === this.code.NAME_LOCK) {
+        fn = this.handlers['lockControllerLock']
+      }
+      if (header.name === this.code.NAME_UNLOCK) {
+        fn = this.handlers['lockControllerUnlock']
+      }
+      break
 
     // authorization
     case this.code.NAMESPACE_AUTHORIZATION:
