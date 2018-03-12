@@ -1,6 +1,6 @@
 {
   "name": "alehos3",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "Make Alexa homeskill quick, with v3",
   "main": "index.js",
   "directories": {
