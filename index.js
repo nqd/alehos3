@@ -134,6 +134,8 @@ function _genRes (req, res) {
     // and update payload type
     response.event.payload = res.err.payload
 
+    response.event.header.namespace = 'Alexa'
+
     // thermostat controller
     // https://github.com/alexa/alexa-smarthome/blob/master/validation_schemas/alexa_smart_home_message_schema.json#L2098
     if (res.err.payload) {
