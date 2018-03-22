@@ -58,7 +58,17 @@ describe('responseEvent', () => {
       payloadVersion: '3'
     })
     expect(resEvent.header).to.has.property('messageId')
-
+    done()
+  })
+  it('should generate response event for report state', done => {
+    const req = require('./sample_messages/StateReport/ReportState.json')
+    const resEvent = utils.createResponseEvent(req)
+    expect(resEvent.header).to.contains({
+      namespace: 'Alexa',
+      name: 'StateReport',
+      payloadVersion: '3'
+    })
+    expect(resEvent.header).to.has.property('messageId')
     done()
   })
 })
