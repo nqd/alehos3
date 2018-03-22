@@ -99,6 +99,11 @@ describe('getHlrFn', () => {
     const event = require('./sample_messages/Authorization/Authorization.AcceptGrant.request.json')
     expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.authorization)
   })
+  // report state
+  it('should call reportState fnc from related request', () => {
+    const event = require('./sample_messages/StateReport/ReportState.json')
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.reportState)
+  })
 })
 
 describe('handler', () => {

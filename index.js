@@ -107,6 +107,13 @@ Alehos.prototype._getHlrFn = function (header) {
       }
 
       break
+    // authorization
+    case this.code.NAMESPACE_REPORT_STATE:
+      if (header.name === this.code.NAME_REPORT_STATE) {
+        fn = this.handlers['reportState']
+      }
+
+      break
   }
 
   return fn

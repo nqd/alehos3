@@ -36,6 +36,9 @@ module.exports = {
   NAMESPACE_LOCKCONTROLLER: 'Alexa.LockController',
   NAME_LOCK: 'Lock',
   NAME_UNLOCK: 'Unlock',
+  // Lock
+  NAMESPACE_REPORT_STATE: 'Alexa',
+  NAME_REPORT_STATE: 'ReportState',
   // error
   ERR_BRIDGE_UNREACHABLE: 'BRIDGE_UNREACHABLE',
   ERR_ENDPOINT_BUSY: 'ENDPOINT_BUSY',
