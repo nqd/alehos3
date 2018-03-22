@@ -41,6 +41,9 @@ function createResponseEvent (req) {
     if (req.directive.header.name === 'Deactivate') {
       event.header.name = 'DeactivationStarted'
     }
+  } else if (req.directive.header.namespace === 'Alexa' && req.directive.header.name === 'ReportState') {
+    event.header.namespace = req.directive.header.namespace
+    event.header.name = 'StateReport'
   } else {
     event.header.namespace = 'Alexa'
     event.header.name = 'Response'
