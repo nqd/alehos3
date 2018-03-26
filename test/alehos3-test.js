@@ -62,6 +62,11 @@ describe('getHlrFn', () => {
     expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.brightnessControllerSet)
   })
 
+  it('should call set color controller fnc from related request', () => {
+    const event = require('./sample_messages/ColorController/ColorController.SetColor.request.json')
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.colorControllerSet)
+  })
+
   // thermostat
   it('should call adjust temperature fnc from related request', () => {
     const event = require('./sample_messages/ThermostatController/ThermostatController.AdjustTargetTemperature.request.json')

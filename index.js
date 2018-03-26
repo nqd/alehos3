@@ -68,6 +68,13 @@ Alehos.prototype._getHlrFn = function (header) {
 
       break
 
+    // color controller
+    case this.code.NAMESPACE_COLORCONTROLLER:
+      if (header.name === this.code.NAME_SETCOLOR) {
+        fn = this.handlers['colorControllerSet']
+      }
+      break
+
     // thermostat
     case this.code.NAMESPACE_THERMOSTATCONTROLLER:
       if (header.name === this.code.NAME_ADJUSTTARGETTEMPERATURE) {
