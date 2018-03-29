@@ -13,9 +13,14 @@ module.exports = {
   NAMESPACE_BRIGHTNESSCONTROLLER: 'Alexa.BrightnessController',
   NAME_ADJUSTBRIGHTNESS: 'AdjustBrightness',
   NAME_SETBRIGHTNESS: 'SetBrightness',
-  // brightness
+  // set color
   NAMESPACE_COLORCONTROLLER: 'Alexa.ColorController',
   NAME_SETCOLOR: 'SetColor',
+  // set color temperature
+  NAMESPACE_COLOR_TEMPERATURE_CONTROLLER: 'Alexa.ColorTemperatureController',
+  NAME_INCREASE_COLOR_TEMPERATURE: 'IncreaseColorTemperature',
+  NAME_DECREASE_COLOR_TEMPERATURE: 'DecreaseColorTemperature',
+  NAME_SET_COLOR_TEMPERATURE: 'SetColorTemperature',
 
   // camera
   NAMESPACE_CAMERASTREAMCONTROLLER: 'Alexa.CameraStreamController',

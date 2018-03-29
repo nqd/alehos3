@@ -61,10 +61,26 @@ describe('getHlrFn', () => {
     const event = require('./sample_messages/BrightnessController/BrightnessController.SetBrightness.request.json')
     expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.brightnessControllerSet)
   })
-
+  // ColorController
   it('should call set color controller fnc from related request', () => {
     const event = require('./sample_messages/ColorController/ColorController.SetColor.request.json')
     expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.colorControllerSet)
+  })
+
+  // ColorTemperatureController
+  it('should call colorTemperatureControllerSet() fnc from related request', () => {
+    const event = require('./sample_messages/ColorTemperatureController/ColorTemperatureController.SetColorTemperature.request.json')
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.colorTemperatureControllerSet)
+  })
+
+  it('should call colorTemperatureControllerIncrease() fnc from related request', () => {
+    const event = require('./sample_messages/ColorTemperatureController/ColorTemperatureController.IncreaseColorTemperature.request.json')
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.colorTemperatureControllerSet)
+  })
+
+  it('should call colorTemperatureControllerDecrease() fnc from related request', () => {
+    const event = require('./sample_messages/ColorTemperatureController/ColorTemperatureController.DecreaseColorTemperature.request.json')
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.colorTemperatureControllerSet)
   })
 
   // thermostat
@@ -348,7 +364,8 @@ describe('createResponseEvent', () => {
         'namespace': 'Alexa.CameraStreamController',
         'name': 'Response',
         'payloadVersion': '3'
-      })
+      }
+    )
     done()
   })
 })
