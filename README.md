@@ -50,13 +50,16 @@ If you don't provide equivalent function, the response will be `INVALID_DIRECTIV
 
 `cb` is the response function.
 
-If you want to return error, generate an new error object, with code of the intented error.
+If you want to return error, generate an new error object, with payload of the intented error.
 Example:
 
 ```{js}
 // if the device is un reachable
 let err = new Error()
-err.code = alehos.code.ERR_ENDPOINT_UNREACHABLE
+err.payload = {
+  type: alehos.code.ERR_ENDPOINT_UNREACHABLE,
+  message: 'device is un reachable'
+}
 return cb(err)
 ```
 
