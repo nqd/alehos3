@@ -101,6 +101,80 @@ Alehos.prototype._getHlrFn = function (header) {
       }
 
       break
+
+    // Channel
+    case this.code.NAMESPACE_CHANNELCONTROLLER:
+      if (header.name === this.code.NAME_CHANGECHANNEL) {
+        fn = this.handlers['channelControllerChange']
+      }
+      if (header.name === this.code.NAME_SKIPCHANNELS) {
+        fn = this.handlers['channelControllerSkip']
+      }
+
+      break
+
+    // Speaker
+    case this.code.NAMESPACE_SPEAKER:
+      if (header.name === this.code.NAME_SETVOLUME) {
+        fn = this.handlers['speakerSetVolume']
+      }
+      if (header.name === this.code.NAME_ADJUSTVOLUME) {
+        fn = this.handlers['speakerAdjustVolume']
+      }
+      if (header.name === this.code.NAME_SETMUTE) {
+        fn = this.handlers['speakerSetMute']
+      }
+
+      break
+
+    // StepSpeaker
+    case this.code.NAMESPACE_STEPSPEAKER:
+      if (header.name === this.code.NAME_ADJUSTVOLUME) {
+        fn = this.handlers['stepSpeakerAdjustVolume']
+      }
+      if (header.name === this.code.NAME_SETMUTE) {
+        fn = this.handlers['stepSpeakerSetMute']
+      }
+
+      break
+
+    // Playback
+    case this.code.NAMESPACE_PLAYBACKCONTROLLER:
+      if (header.name === this.code.NAME_FASTFORWARD) {
+        fn = this.handlers['playBackControllerFastForward']
+      }
+      if (header.name === this.code.NAME_NEXT) {
+        fn = this.handlers['playBackControllerNext']
+      }
+      if (header.name === this.code.NAME_PAUSE) {
+        fn = this.handlers['playBackControllerPause']
+      }
+      if (header.name === this.code.NAME_PLAY) {
+        fn = this.handlers['playBackControllerPlay']
+      }
+      if (header.name === this.code.NAME_PREVIOUS) {
+        fn = this.handlers['playBackControllerPrevious']
+      }
+      if (header.name === this.code.NAME_REWIND) {
+        fn = this.handlers['playBackControllerRewind']
+      }
+      if (header.name === this.code.NAME_STARTOVER) {
+        fn = this.handlers['playBackControllerStartOver']
+      }
+      if (header.name === this.code.NAME_STOP) {
+        fn = this.handlers['playBackControllerStop']
+      }
+
+      break
+
+    // input
+    case this.code.NAMESPACE_INPUTCONTROLLER:
+      if (header.name === this.code.NAME_SELECTINPUT) {
+        fn = this.handlers['inputControllerSelect']
+      }
+
+      break
+
     // Scene
     case this.code.NAMESPACE_SCENECONTROLLER:
       if (header.name === this.code.NAME_ACTIVATE) {

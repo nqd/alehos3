@@ -26,6 +26,27 @@ describe('getHlrFn', () => {
       thermostatSetTargetTemperature: function (_req, _cb) { },
       thermostatSetThermostatMode: function (_req, _cb) { },
 
+      channelControllerChange: function (_req, _cb) { },
+      channelControllerSkip: function (_req, _cb) { },
+
+      speakerSetVolume: function (_req, _cb) { },
+      speakerAdjustVolume: function (_req, _cb) { },
+      speakerSetMute: function (_req, _cb) { },
+
+      stepSpeakerAdjustVolume: function (_req, _cb) { },
+      stepSpeakerSetMute: function (_req, _cb) { },
+
+      playBackControllerFastForward: function (_req, _cb) { },
+      playBackControllerNext: function (_req, _cb) { },
+      playBackControllerPause: function (_req, _cb) { },
+      playBackControllerPlay: function (_req, _cb) { },
+      playBackControllerPrevious: function (_req, _cb) { },
+      playBackControllerRewind: function (_req, _cb) { },
+      playBackControllerStartOver: function (_req, _cb) { },
+      playBackControllerStop: function (_req, _cb) { },
+
+      inputControllerSelect: function (_req, _cb) { },
+
       authorization: function (_req, _cb) { }
     }
   })
@@ -95,6 +116,80 @@ describe('getHlrFn', () => {
   it('should call set thermostat mode fnc from related request', () => {
     const event = require('./sample_messages/ThermostatController/ThermostatController.SetThermostatMode.request.json')
     expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.thermostatSetThermostatMode)
+  })
+
+  // Channels
+  it('should call change channel fnc from related request', () => {
+    const event = require('./sample_messages/ChannelController/ChannelController.ChangeChannel.request.json')
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.channelControllerChange)
+  })
+  it('should call skip channels fnc from related request', () => {
+    const event = require('./sample_messages/ChannelController/ChannelController.SkipChannels.request.json')
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.channelControllerSkip)
+  })
+
+  // Speaker
+  it('should call set volume fnc from speaker adjust volume event', () => {
+    const event = require('./sample_messages/Speaker/Speaker.SetVolume.request.json')
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.speakerSetVolume)
+  })
+  it('should call adjust volume fnc speaker adjust volume event', () => {
+    const event = require('./sample_messages/Speaker/Speaker.AdjustVolume.request.json')
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.speakerAdjustVolume)
+  })
+  it('should call set mute fnc from speaker adjust volume event', () => {
+    const event = require('./sample_messages/Speaker/Speaker.SetMute.request.json')
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.speakerSetMute)
+  })
+
+  // StepSpeaker
+  it('should call adjust volume fnc from step speaker adjust volume event', () => {
+    const event = require('./sample_messages/StepSpeaker/StepSpeaker.AdjustVolume.request.json')
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.stepSpeakerAdjustVolume)
+  })
+  it('should call set mute fnc from step speaker adjust volume event', () => {
+    const event = require('./sample_messages/StepSpeaker/StepSpeaker.SetMute.request.json')
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.stepSpeakerSetMute)
+  })
+
+  // Playback
+  it('should call fast foward fnc from related request', () => {
+    const event = require('./sample_messages/PlaybackController/PlaybackController.FastForward.request.json')
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.playBackControllerFastForward)
+  })
+  it('should call next fnc from related request', () => {
+    const event = require('./sample_messages/PlaybackController/PlaybackController.Next.request.json')
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.playBackControllerNext)
+  })
+  it('should call pause fnc from related request', () => {
+    const event = require('./sample_messages/PlaybackController/PlaybackController.Pause.request.json')
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.playBackControllerPause)
+  })
+  it('should call play fnc from related request', () => {
+    const event = require('./sample_messages/PlaybackController/PlaybackController.Play.request.json')
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.playBackControllerPlay)
+  })
+  it('should call previous fnc from related request', () => {
+    const event = require('./sample_messages/PlaybackController/PlaybackController.Previous.request.json')
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.playBackControllerPrevious)
+  })
+  it('should call rewind fnc from related request', () => {
+    const event = require('./sample_messages/PlaybackController/PlaybackController.Rewind.request.json')
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.playBackControllerRewind)
+  })
+  it('should call startOver fnc from related request', () => {
+    const event = require('./sample_messages/PlaybackController/PlaybackController.StartOver.request.json')
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.playBackControllerStartOver)
+  })
+  it('should call stop fnc from related request', () => {
+    const event = require('./sample_messages/PlaybackController/PlaybackController.Stop.request.json')
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.playBackControllerStop)
+  })
+
+  // Input
+  it('should call select input fnc from related request', () => {
+    const event = require('./sample_messages/InputController/InputController.SelectInput.request.json')
+    expect(app._getHlrFn(event.directive.header)).to.eq(app.handlers.inputControllerSelect)
   })
 
   // Scene
