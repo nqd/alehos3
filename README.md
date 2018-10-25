@@ -58,7 +58,7 @@ Example:
 let err = new Error()
 err.payload = {
   type: alehos.code.ERR_ENDPOINT_UNREACHABLE,
-  message: 'device is un reachable'
+  message: 'device is unreachable'
 }
 return cb(err)
 ```
